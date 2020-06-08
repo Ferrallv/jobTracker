@@ -5,10 +5,14 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/joho/godotenv/autoload"
 	"fmt"
+	"net/http"
 )
 
 type Db_conn_funcs interface {
 	AllApplications() ([]*applicationRecordListView, error)
+	InsertApplication(req *http.Request) error
+	AllContacts() ([]*contactRecordListView, error)
+	AllInterviews() ([]*interviewRecordListView, error)
 }
 
 type Db_conn struct {

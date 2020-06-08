@@ -29,6 +29,10 @@ func main() {
 
 	http.HandleFunc("/", env.index)
 	http.HandleFunc("/applications", env.applicationShow)
+	http.HandleFunc("/applications/add", env.applicationAddFormGET)
+	http.HandleFunc("/applications/add/execute", env.applicationAddFormPOST)
+	http.HandleFunc("/contacts", env.contactShow)
+	http.HandleFunc("/interviews", env.interviewShow)
 
 	http.ListenAndServe(":8080", nil)
 }
@@ -52,6 +56,51 @@ func (env *Env) applicationShow(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "applications.gohtml", appsList)
 }
 
-func (env *Env) applicationAddForm(w http.ResponseWriter, req *http.Request) {
+func (env *Env) applicationAddFormGET(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "applicationAddForm.gohtml", nil)
+}
+
+func (env *Env) applicationAddFormPOST(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+
+	err := env.conn.InsertApplication(req)
+	if err != nil {
+		http.Error(w, http.StatusText(500)+":"+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, req, "/applications", http.StatusSeeOther)
+}
+
+func (env *Env) contactShow(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "GET" {
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+
+	contactsList, err := env.conn.AllContacts()
+	if err != nil {
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "contacts.gohtml", contactsList)
+}
+
+func (env *Env) interviewShow(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "GET" {
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+
+	interviewList, err := env.conn.AllInterviews()
+	if err != nil {
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+		return 
+	}
+
+	tpl.ExecuteTemplate(w, "interviews.gohtml", interviewList)
 }

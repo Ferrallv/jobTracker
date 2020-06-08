@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Interviews</title>
+</head>
+<body>
+	<h1>Interviews</h1>
+	<table>
+		<tr>
+			<th>Interview Time</th>
+			<th>Method Of Interview</th>
+			<th>Job Title</th>
+			<th>Company</th>
+		</tr>
+		{{range .}}
+		<tr>
+			<td>{{.Appointment}}</td>
+			<td>{{.Method}}</td>
+			<td>{{.JobTitle}}</td>
+			<td>{{.Company}}</td>
+		</tr>
+		{{end}}
+	</table>
+</body>
+</html>
