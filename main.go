@@ -28,7 +28,7 @@ func main() {
 	env := &Env{conn}
 
 	http.HandleFunc("/", env.index)
-	http.HandleFunc("/applications", env.applicationListView)
+	http.HandleFunc("/applications", env.applicationShow)
 
 	http.ListenAndServe(":8080", nil)
 }
@@ -37,7 +37,7 @@ func (env *Env) index(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "index.gohtml", nil)
 }
 
-func (env *Env) applicationListView(w http.ResponseWriter, req *http.Request) {
+func (env *Env) applicationShow(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "GET" {
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
 		return
@@ -50,4 +50,8 @@ func (env *Env) applicationListView(w http.ResponseWriter, req *http.Request) {
 
 
 	tpl.ExecuteTemplate(w, "applications.gohtml", appsList)
+}
+
+func (env *Env) applicationAddForm(w http.ResponseWriter, req *http.Request) {
+	tpl.ExecuteTemplate(w, "applicationAddForm.gohtml", nil)
 }
