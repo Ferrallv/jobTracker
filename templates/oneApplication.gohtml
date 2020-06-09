@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Application:View</title>
+</head>
+<body>
+
+<h1>Application to {{.JobTitle}} at {{.Company}}</h1>
+	<table>
+		<tr>
+			<th>Job Title</th>
+			<td>{{.JobTitle}}</td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td>{{.Description}}</td>
+		</tr>
+		<tr>
+			<th>Url</th>
+			<td>{{.Url}}</td>
+		</tr>
+		<tr>
+			<th>Company</th>
+			<td>{{.Company}}</td>
+		</tr>
+		<tr>
+			<th>Resume</th>
+			<td><embed src="/tmp/resume.pdf" type="application/pdf"></embed></td>
+		</tr>
+		<tr>
+			<th>Cover Letter</th>
+			<td><embed src="/tmp/coverletter.pdf" type="application/pdf"><embed/></td>
+		</tr>
+		<tr>
+			<th>Date Applied</th>
+			<td>{{.AppDate}}</td>
+		</tr>
+		<tr>
+			<th>Offer Date</th>
+			<td>{{.Offer}}</td>
+		</tr>
+		<tr>
+			<th>Date Rejected</th>
+			<td>{{.Rejected}}</td>
+		</tr>
+		<tr>
+			<th>Date Declined</th>
+			<td>{{.Declined}}</td>
+		</tr>
+	</table>
+</body>
+</html>

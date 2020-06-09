@@ -11,6 +11,10 @@ import (
 type Db_conn_funcs interface {
 	AllApplications() ([]*applicationRecordListView, error)
 	InsertApplication(req *http.Request) error
+	UpdateApplicationGET(req *http.Request) (*applicationView, error)
+	UpdateApplicationPOST(req *http.Request) error
+	ViewApplication(req *http.Request) (*applicationView, error)
+	RemoveApplication(req *http.Request) error
 	AllContacts() ([]*contactRecordListView, error)
 	AllInterviews() ([]*interviewRecordListView, error)
 }
