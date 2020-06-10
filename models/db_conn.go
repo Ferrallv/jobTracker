@@ -16,7 +16,13 @@ type Db_conn_funcs interface {
 	ViewApplication(req *http.Request) (*applicationView, error)
 	RemoveApplication(req *http.Request) error
 	AllContacts() ([]*contactRecordListView, error)
+	InsertContact(req *http.Request) error
+	UpdateContactGET(req *http.Request) (*contactView, error)
+	UpdateContactPOST(req *http.Request) error
+	RemoveContact(req *http.Request) error
 	AllInterviews() ([]*interviewRecordListView, error)
+	InsertInterviewGET(req *http.Request) (*interviewLink, error)
+	InsertInterviewPOST(req *http.Request) error
 }
 
 type Db_conn struct {

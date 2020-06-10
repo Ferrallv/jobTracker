@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Contact:Update</title>
+</head>
+<body>
+<h1>Contact Details</h1>
+<form method="post" action="/contacts/update/execute?id={{.Id}}" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Name" required autofocus value="{{.Name}}">
+    <input type="text" name="position" placeholder="Position" value="{{.Position}}">
+    <input type="text" name="number" placeholder="Phone Number" value="{{.Number}}">
+    <input type="email" name="email" placeholder="Email" value="{{.Email}}">
+    <input type="text" name="company" placeholder="Company" required value="{{.Company}}">
+    <input type="text" name="note" placeholder="Notes" value="{{.Note}}">
+    <input type="submit">
+</form>
+</body>
+</html>

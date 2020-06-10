@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>Contacts</h1>
+	<button><a href="/contacts/add">+Contact</a></button>
 	<table>
 		<tr>
 			<th>Name</th>
@@ -23,6 +24,8 @@
 			<td>{{.Email}}</td>
 			<td>{{.Company}}</td>
 			<td>{{.Note}}</td>
+			<td><a href="/contacts/update?id={{.Id}}">Update</a></td>
+			<td><a href="/contacts/remove/execute?id={{.Id}}">DELETE</a></td>
 		</tr>
 		{{end}}
 	</table>
