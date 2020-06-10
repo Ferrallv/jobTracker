@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Interviews</title>
-</head>
-<body>
+{{template "header"}}
+
 	<h1>Interviews</h1>
 	<table>
 		<tr>
@@ -13,14 +8,16 @@
 			<th>Job Title</th>
 			<th>Company</th>
 		</tr>
-		{{range .}}
+	{{range .}}
 		<tr>
 			<td>{{.Appointment}}</td>
 			<td>{{.Method}}</td>
 			<td>{{.JobTitle}}</td>
 			<td>{{.Company}}</td>
+			<td><a href="/interviews/update?id={{.Id}}">Update</a></td>
+			<td><a href="/interviews/remove/execute?id={{.Id}}">DELETE</a></td>
 		</tr>
-		{{end}}
+	{{end}}
 	</table>
-</body>
-</html>
+
+{{template "footer"}}

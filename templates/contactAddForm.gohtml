@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Contact:Add</title>
-</head>
-<body>
+{{template "header"}}
+
 <h1>Contact Details</h1>
 <form method="post" action="/contacts/add/execute" enctype="multipart/form-data">
     <input type="text" name="name" placeholder="Name" required autofocus>
@@ -15,5 +10,5 @@
     <input type="text" name="note" placeholder="Notes">
     <input type="submit">
 </form>
-</body>
-</html>
+
+{{template "footer"}}

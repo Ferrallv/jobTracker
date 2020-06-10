@@ -1,7 +1,7 @@
 {{template "header"}}
 
 <h1>Interview Details</h1>
-<form method="post" action="/interviews/add/execute?id={{.Id}}" enctype="multipart/form-data">
+<form method="post" action="/interviews/update/execute?id={{.Id}}" enctype="multipart/form-data">
     <input type="datetime-local" name="date" placeholder="Date" required autofocus>
     <input type="text" name="method" placeholder="Interview Method (in-person, phone, ...)">
     <input type="submit">

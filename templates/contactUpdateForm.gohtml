@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Contact:Update</title>
-</head>
-<body>
+{{template "header"}}
+
 <h1>Contact Details</h1>
 <form method="post" action="/contacts/update/execute?id={{.Id}}" enctype="multipart/form-data">
     <input type="text" name="name" placeholder="Name" required autofocus value="{{.Name}}">
@@ -15,5 +10,5 @@
     <input type="text" name="note" placeholder="Notes" value="{{.Note}}">
     <input type="submit">
 </form>
-</body>
-</html>
+
+{{template "footer"}}

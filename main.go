@@ -7,6 +7,7 @@ import (
 	"os"
 	"log"
 	"jobtracker/models"
+	// "fmt" // for debugging
 )
 
 var tpl *template.Template 
@@ -44,6 +45,9 @@ func main() {
 	http.HandleFunc("/interviews", env.interviewShow)
 	http.HandleFunc("/interviews/add", env.interviewAddFormGET)
 	http.HandleFunc("/interviews/add/execute", env.interviewAddFormPOST)
+	http.HandleFunc("/interviews/update", env.interviewUpdateGET)
+	http.HandleFunc("/interviews/update/execute", env.interviewUpdatePOST)
+	http.HandleFunc("/interviews/remove/execute", env.interviewRemove)
 	
 
 	http.Handle("/tmp/", http.StripPrefix("/tmp", http.FileServer(http.Dir("./tmp"))))
@@ -274,4 +278,50 @@ func (env *Env) interviewAddFormPOST(w http.ResponseWriter, req *http.Request) {
 	}
 
 	http.Redirect(w, req, "/interviews", http.StatusSeeOther)
+}
+
+func (env *Env) interviewUpdateGET(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "GET" {
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+	
+	// reuse this code, performs same purpose
+	id, err := env.conn.InsertInterviewGET(req)
+	if err != nil {
+		http.Error(w, http.StatusText(500)+":"+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "interviewUpdateForm.gohtml", id)
+}
+
+func (env *Env) interviewUpdatePOST(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return	
+	}
+
+	err := env.conn.UpdateInterviewPOST(req)
+	if err != nil {
+		http.Error(w, http.StatusText(500)+":"+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, req, "/interviews", http.StatusSeeOther)
+}
+
+func (env *Env) interviewRemove(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "GET" {
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
+		return
+	}
+
+	err := env.conn.RemoveInterview(req)
+	if err != nil {
+		http.Error(w, http.StatusText(500)+":"+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, req, "/interviews", http.StatusSeeOther)	
 }

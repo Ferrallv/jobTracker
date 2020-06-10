@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Application:View</title>
-</head>
-<body>
+{{template "header"}}
 
 <h1>Application to {{.JobTitle}} at {{.Company}}</h1>
 	<table>
@@ -49,5 +43,5 @@
 			<td>{{.Declined}}</td>
 		</tr>
 	</table>
-</body>
-</html>
+
+{{template "footer"}}

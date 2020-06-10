@@ -23,6 +23,8 @@ type Db_conn_funcs interface {
 	AllInterviews() ([]*interviewRecordListView, error)
 	InsertInterviewGET(req *http.Request) (*interviewLink, error)
 	InsertInterviewPOST(req *http.Request) error
+	UpdateInterviewPOST(req *http.Request) error
+	RemoveInterview(req *http.Request) error
 }
 
 type Db_conn struct {

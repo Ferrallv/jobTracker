@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Application:Add</title>
-</head>
-<body>
+{{template "header"}}
+
 <h1>Application Details</h1>
 <form method="post" action="/applications/update/execute?id={{.Id}}&appdate={{.AppDate}}" enctype="multipart/form-data">
     <input type="text" name="job_title" placeholder="Job Title" required autofocus value="{{.JobTitle}}">
@@ -18,5 +13,5 @@
     <input type="datetime-local" name="declined" placeholder="Application Declined?" value="{{.Declined}}">
     <input type="submit">
 </form>
-</body>
-</html>
+
+{{template "footer"}}

@@ -46,6 +46,7 @@ type contact struct {
 }
 
 type interviewRecordListView struct {
+	Id int
 	Appointment *time.Time
 	Method, JobTitle, Company string
 }
@@ -372,7 +373,7 @@ func (conn *Db_conn) UpdateContactPOST(req *http.Request) error {
 }
 
 func (conn *Db_conn) AllInterviews() ([]*interviewRecordListView, error) {
-	rows, err := conn.Query(context.Background(), "SELECT I.date, I.method, A.job_title, A.company FROM interview AS I LEFT JOIN application AS A ON I.job_id = A.id")
+	rows, err := conn.Query(context.Background(), "SELECT I.id, I.date, I.method, A.job_title, A.company FROM interview AS I LEFT JOIN application AS A ON I.job_id = A.id")
 	if err != nil {
 		return nil, err
 	}
@@ -381,13 +382,12 @@ func (conn *Db_conn) AllInterviews() ([]*interviewRecordListView, error) {
 	interviews := make([]*interviewRecordListView, 0)
 	for rows.Next() {
 		interview := new(interviewRecordListView)
-		err := rows.Scan(&interview.Appointment, &interview.Method, &interview.JobTitle, &interview.Company)
+		err := rows.Scan(&interview.Id, &interview.Appointment, &interview.Method, &interview.JobTitle, &interview.Company)
 		if err != nil {
 			return nil, err
 		}
 		interviews = append(interviews, interview)
 	}
-
 	return interviews, nil
 }
 
@@ -420,6 +420,46 @@ func (conn *Db_conn) InsertInterviewPOST(req *http.Request) error {
 	}
 
 	_, err = conn.Exec(context.Background(), "INSERT INTO interview (date, method, job_id) VALUES ($1, $2, $3)", interview.Appointment, interview.Method, interview.JobID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (conn *Db_conn) UpdateInterviewPOST(req *http.Request) error {
+	var err error
+
+	id_slice, ok := req.URL.Query()["id"]
+	if !ok {
+		errors.New("Error in retrieving id.")
+	}
+
+	time_layout := "2006-01-02T15:04"
+	req.ParseMultipartForm(32<<20)
+	interview := interview{}
+
+	interview.Appointment, err = time.Parse(time_layout, req.FormValue("date"))
+	if err != nil {
+		return err
+	}
+	interview.Method = req.FormValue("method")
+
+	_, err = conn.Exec(context.Background(), "UPDATE interview SET (date, method) = ($1, $2) WHERE id = $3", interview.Appointment, interview.Method, id_slice[0])
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (conn *Db_conn) RemoveInterview(req *http.Request) error {
+	id_slice, ok := req.URL.Query()["id"]
+	if !ok {
+		errors.New("Error in retrieving id.")
+	}
+
+	_, err := conn.Exec(context.Background(), "DELETE FROM interview WHERE id = $1;", id_slice[0])
 	if err != nil {
 		return err
 	}
