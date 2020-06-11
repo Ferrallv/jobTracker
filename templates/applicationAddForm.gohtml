@@ -1,38 +1,42 @@
 {{template "header"}}
-
-<h1>Application Details</h1>
-<form method="post" action="/applications/add/execute" enctype="multipart/form-data">
-    <div class="form-group">
-    	<label>Job Title
-    		<input type="text" name="job_title" class="form-control" required autofocus>
-    	</label>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Application Details</h1>
+            <form method="post" action="/applications/add/execute" enctype="multipart/form-data">
+                <div class="form-group">
+                	<label>Job Title
+                		<input type="text" name="job_title" class="form-control" required autofocus>
+                	</label>
+                </div>
+                <div class="form-group">
+                	<label> Job Description
+                		<input type="text" name="description">
+                	</label>
+            	</div>
+            	<div class="form-group">
+            		<label>URL link
+                		<input type="url" name="url">
+               		</label>
+                </div>
+                <div class="form-group">
+                	<label>Company
+                <input type="text" name="company" required>
+                	</label>
+                </div>
+                <div class="form-group">
+                	<label>CV Used
+                		<input type="file" name="resume">
+                	</label>
+                </div>
+                <div class="form-group">
+                	<label>Cover Letter Used
+                		<input type="file" name="cvr_letter">
+                	</label>
+               	</div>
+                <input type="submit">
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-    	<label> Job Description
-    		<input type="text" name="description">
-    	</label>
-	</div>
-	<div class="form-group">
-		<label>URL link
-    		<input type="url" name="url">
-   		</label>
-    </div>
-    <div class="form-group">
-    	<label>Company
-    <input type="text" name="company" required>
-    	</label>
-    </div>
-    <div class="form-group">
-    	<label>CV Used
-    		<input type="file" name="resume">
-    	</label>
-    </div>
-    <div class="form-group">
-    	<label>Cover Letter Used
-    		<input type="file" name="cvr_letter">
-    	</label>
-   	</div>
-    <input type="submit">
-</form>
-
+</div>
 {{template "footer"}}

@@ -1,29 +1,33 @@
 {{template "header"}}
-
-	<h1>Interviews</h1>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="col">Interview Time</th>
-				<th scope="col">Method Of Interview</th>
-				<th scope="col">Job Title</th>
-				<th scope="col">Company</th>
-				<th scope="col"></th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-		{{range .}}
-			<tr>
-				<td>{{.Appointment}}</td>
-				<td>{{.Method}}</td>
-				<td>{{.JobTitle}}</td>
-				<td>{{.Company}}</td>
-				<td><a href="/interviews/update?id={{.Id}}">Update</a></td>
-				<td><a href="/interviews/remove/execute?id={{.Id}}">DELETE</a></td>
-			</tr>
-		{{end}}
-		</tbody>
-	</table>
-
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1>Interviews</h1>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Interview Time</th>
+						<th scope="col">Method Of Interview</th>
+						<th scope="col">Job Title</th>
+						<th scope="col">Company</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+				{{range .}}
+					<tr>
+						<td>{{.Appointment}}</td>
+						<td>{{.Method}}</td>
+						<td>{{.JobTitle}}</td>
+						<td>{{.Company}}</td>
+						<td><a href="/interviews/update?id={{.Id}}">Update</a></td>
+						<td><a href="/interviews/remove/execute?id={{.Id}}">DELETE</a></td>
+					</tr>
+				{{end}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 {{template "footer"}}

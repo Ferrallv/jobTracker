@@ -1,34 +1,38 @@
 {{template "header"}}
-
-<h1>Contacts</h1>
-<button><a href="/contacts/add">+Contact</a></button>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">Name</th>
-			<th scope="col">Position</th>
-			<th scope="col">Number</th>
-			<th scope="col">Email</th>
-			<th scope="col">Company</th>
-			<th scope="col">Note</th>
-			<th scope="col"></th>
-			<th scope="col"></th>
-		</tr>
-	</thead>
-	<tbody>
-		{{range .}}
-		<tr>
-			<td>{{.Name}}</td>
-			<td>{{.Position}}</td>
-			<td>{{.Number}}</td>
-			<td>{{.Email}}</td>
-			<td>{{.Company}}</td>
-			<td>{{.Note}}</td>
-			<td><a href="/contacts/update?id={{.Id}}">Update</a></td>
-			<td><a href="/contacts/remove/execute?id={{.Id}}">DELETE</a></td>
-		</tr>
-		{{end}}
-	</tbody>
-</table>
-
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1>Contacts</h1>
+			<button><a href="/contacts/add">+Contact</a></button>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Position</th>
+						<th scope="col">Number</th>
+						<th scope="col">Email</th>
+						<th scope="col">Company</th>
+						<th scope="col">Note</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .}}
+					<tr>
+						<td>{{.Name}}</td>
+						<td>{{.Position}}</td>
+						<td>{{.Number}}</td>
+						<td>{{.Email}}</td>
+						<td>{{.Company}}</td>
+						<td>{{.Note}}</td>
+						<td><a href="/contacts/update?id={{.Id}}">Update</a></td>
+						<td><a href="/contacts/remove/execute?id={{.Id}}">DELETE</a></td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 {{template "footer"}}
