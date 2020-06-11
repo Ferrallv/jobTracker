@@ -2,9 +2,16 @@
 
 <h1>Interview Details</h1>
 <form method="post" action="/interviews/update/execute?id={{.Id}}" enctype="multipart/form-data">
-    <input type="datetime-local" name="date" placeholder="Date" required autofocus>
-    <input type="text" name="method" placeholder="Interview Method (in-person, phone, ...)">
+    <label>Interview Scheduled
+    	<input type="date" name="interviewDate" required/>
+    	<input type="time" name="interviewTime" required/>
+    </label>
+    <label>Interview Method
+    	<input type="text" name="method" placeholder="Interview Method (in-person, phone, ...)" required>
+    </label>
     <input type="submit">
 </form>
-
 {{template "footer"}}
+<!-- Note for datetime formatting -->
+<!-- YYYY-MM-DD HH:mm:ss.SSSSSS ZZ zz
+2006-01-02 15:04:05.000000 -0700 MST -->

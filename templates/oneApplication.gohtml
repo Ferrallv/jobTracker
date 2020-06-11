@@ -1,47 +1,55 @@
 {{template "header"}}
 
 <h1>Application to {{.JobTitle}} at {{.Company}}</h1>
-	<table>
-		<tr>
-			<th>Job Title</th>
-			<td>{{.JobTitle}}</td>
-		</tr>
-		<tr>
-			<th>Description</th>
-			<td>{{.Description}}</td>
-		</tr>
-		<tr>
-			<th>Url</th>
-			<td>{{.Url}}</td>
-		</tr>
-		<tr>
-			<th>Company</th>
-			<td>{{.Company}}</td>
-		</tr>
-		<tr>
-			<th>Resume</th>
-			<td><embed src="/tmp/resume.pdf" type="application/pdf"></embed></td>
-		</tr>
-		<tr>
-			<th>Cover Letter</th>
-			<td><embed src="/tmp/coverletter.pdf" type="application/pdf"><embed/></td>
-		</tr>
-		<tr>
-			<th>Date Applied</th>
-			<td>{{.AppDate}}</td>
-		</tr>
-		<tr>
-			<th>Offer Date</th>
-			<td>{{.Offer}}</td>
-		</tr>
-		<tr>
-			<th>Date Rejected</th>
-			<td>{{.Rejected}}</td>
-		</tr>
-		<tr>
-			<th>Date Declined</th>
-			<td>{{.Declined}}</td>
-		</tr>
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th scope="col">Field</th>
+				<th scope="col">Data</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Job Title</th>
+				<td>{{.JobTitle}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Description</th>
+				<td>{{.Description}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Url</th>
+				<td>{{.Url}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Company</th>
+				<td>{{.Company}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Resume</th>
+				<td><embed src="/tmp/resume.pdf" type="application/pdf"></embed></td>
+			</tr>
+			<tr>
+				<th scope="row">Cover Letter</th>
+				<td><embed src="/tmp/coverletter.pdf" type="application/pdf"><embed/></td>
+			</tr>
+			<tr>
+				<th scope="row">Date Applied</th>
+				<td>{{.AppDate}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Offer Date</th>
+				<td>{{.Offer}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Date Rejected</th>
+				<td>{{.Rejected}}</td>
+			</tr>
+			<tr>
+				<th scope="row">Date Declined</th>
+				<td>{{.Declined}}</td>
+			</tr>
+		</tbody>
 	</table>
 
 {{template "footer"}}
