@@ -2,9 +2,9 @@ package models
 
 import (
 	"context"
+	"fmt"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/joho/godotenv/autoload"
-	"fmt"
 	"net/http"
 )
 

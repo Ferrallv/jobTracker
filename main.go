@@ -1,16 +1,16 @@
 package main
 
 import (
-	"net/http"
-	"html/template"
 	_ "github.com/joho/godotenv/autoload"
-	"os"
-	"log"
+	"html/template"
 	"jobtracker/models"
+	"log"
+	"net/http"
+	"os"
 	// "fmt" // for debugging
 )
 
-var tpl *template.Template 
+var tpl *template.Template
 
 type Env struct {
 	conn models.Db_conn_funcs
@@ -48,7 +48,6 @@ func main() {
 	http.HandleFunc("/interviews/update", env.interviewUpdateGET)
 	http.HandleFunc("/interviews/update/execute", env.interviewUpdatePOST)
 	http.HandleFunc("/interviews/remove/execute", env.interviewRemove)
-	
 
 	http.Handle("/tmp/", http.StripPrefix("/tmp", http.FileServer(http.Dir("./tmp"))))
 	// http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./static"))))
@@ -70,7 +69,6 @@ func (env *Env) applicationShow(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, http.StatusText(500)+":"+err.Error(), http.StatusInternalServerError)
 		return
 	}
-
 
 	tpl.ExecuteTemplate(w, "applications.gohtml", appsList)
 }
@@ -223,7 +221,7 @@ func (env *Env) contactUpdateFormGET(w http.ResponseWriter, req *http.Request) {
 func (env *Env) contactUpdateFormPOST(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
-		return	
+		return
 	}
 
 	err := env.conn.UpdateContactPOST(req)
@@ -234,7 +232,6 @@ func (env *Env) contactUpdateFormPOST(w http.ResponseWriter, req *http.Request) 
 
 	http.Redirect(w, req, "/contacts", http.StatusSeeOther)
 }
-
 
 func (env *Env) interviewShow(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "GET" {
@@ -260,16 +257,16 @@ func (env *Env) interviewAddFormGET(w http.ResponseWriter, req *http.Request) {
 	id, err := env.conn.InsertInterviewGET(req)
 	if err != nil {
 		http.Error(w, http.StatusText(500)+":"+err.Error(), http.StatusInternalServerError)
-		return 
+		return
 	}
-	
+
 	tpl.ExecuteTemplate(w, "interviewAddForm.gohtml", id)
 }
 
 func (env *Env) interviewAddFormPOST(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
-		return	
+		return
 	}
 
 	err := env.conn.InsertInterviewPOST(req)
@@ -286,7 +283,7 @@ func (env *Env) interviewUpdateGET(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
 		return
 	}
-	
+
 	// reuse this code, performs same purpose
 	id, err := env.conn.InsertInterviewGET(req)
 	if err != nil {
@@ -300,7 +297,7 @@ func (env *Env) interviewUpdateGET(w http.ResponseWriter, req *http.Request) {
 func (env *Env) interviewUpdatePOST(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
-		return	
+		return
 	}
 
 	err := env.conn.UpdateInterviewPOST(req)
@@ -324,5 +321,5 @@ func (env *Env) interviewRemove(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	http.Redirect(w, req, "/interviews", http.StatusSeeOther)	
+	http.Redirect(w, req, "/interviews", http.StatusSeeOther)
 }

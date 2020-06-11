@@ -1,44 +1,43 @@
 package models
 
-import(
-	"time"
+import (
+	"bytes"
 	"context"
 	"errors"
-	"net/http"
-	"bytes"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"strconv"
+	"time"
 	// "fmt" // for debugging
 )
 
 type applicationRecordListView struct {
-	Id int
+	Id                int
 	JobTitle, Company string
-	AppDate time.Time
-		
+	AppDate           time.Time
 }
 
 type applicationView struct {
-	Id int
-	JobTitle, Description, Url, Company  string
-	Resume, CoverLetter []byte
-	AppDate, Offer, Rejected, Declined time.Time
+	Id                                  int
+	JobTitle, Description, Url, Company string
+	Resume, CoverLetter                 []byte
+	AppDate, Offer, Rejected, Declined  time.Time
 }
 
 type application struct {
 	JobTitle, Description, Url, Company string
-	Resume, CoverLetter []byte
-	AppDate, Offer, Rejected, Declined time.Time
+	Resume, CoverLetter                 []byte
+	AppDate, Offer, Rejected, Declined  time.Time
 }
 
 type contactRecordListView struct {
-	Id int
-	Name, Position, Number, Email, Company, Note string 
+	Id                                           int
+	Name, Position, Number, Email, Company, Note string
 }
 
 type contactView struct {
-	Id int
+	Id                                           int
 	Name, Position, Number, Email, Company, Note string
 }
 
@@ -47,15 +46,15 @@ type contact struct {
 }
 
 type interviewRecordListView struct {
-	Id int
-	Appointment time.Time
+	Id                        int
+	Appointment               time.Time
 	Method, JobTitle, Company string
 }
 
 type interview struct {
 	Appointment time.Time
-	Method string
-	JobID int
+	Method      string
+	JobID       int
 }
 
 type interviewLink struct {
@@ -79,10 +78,10 @@ func (conn *Db_conn) AllApplications() ([]*applicationRecordListView, error) {
 			return nil, err
 		}
 		app.AppDate = time.Unix(*unixDate, 0).UTC()
-		apps = append(apps, app)		
+		apps = append(apps, app)
 	}
-	
-	if err := rows.Err(); err != nil {	
+
+	if err := rows.Err(); err != nil {
 		return nil, err
 	}
 
@@ -92,10 +91,10 @@ func (conn *Db_conn) AllApplications() ([]*applicationRecordListView, error) {
 func (conn *Db_conn) InsertApplication(req *http.Request) error {
 	var err error
 	var Buf bytes.Buffer
-	req.ParseMultipartForm(32<<20)
+	req.ParseMultipartForm(32 << 20)
 
 	app := application{}
-	
+
 	app.JobTitle = req.FormValue("job_title")
 	app.Description = req.FormValue("description")
 	app.Url = req.FormValue("url")
@@ -104,7 +103,7 @@ func (conn *Db_conn) InsertApplication(req *http.Request) error {
 	zero_time := time.Time{}.Unix()
 
 	if _, ok := req.MultipartForm.File["resume"]; ok {
-		resume_file, _, err  := req.FormFile("resume")
+		resume_file, _, err := req.FormFile("resume")
 		if err != nil {
 			return err
 		}
@@ -122,7 +121,7 @@ func (conn *Db_conn) InsertApplication(req *http.Request) error {
 			return err
 		}
 		defer coverletter_file.Close()
-		if _, err = io.Copy(&Buf, coverletter_file); err != nil{
+		if _, err = io.Copy(&Buf, coverletter_file); err != nil {
 			return err
 		}
 		app.CoverLetter = Buf.Bytes()
@@ -131,7 +130,7 @@ func (conn *Db_conn) InsertApplication(req *http.Request) error {
 	if app.JobTitle == "" || app.Company == "" {
 		return errors.New("Job Title and Company cannot be left blank.")
 	}
-	
+
 	_, err = conn.Exec(context.Background(), "INSERT INTO application (job_title, description, url, company, resume, cvr_letter, app_date, offer, rejected, declined) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", app.JobTitle, app.Description, app.Url, app.Company, app.Resume, app.CoverLetter, app.AppDate.Unix(), zero_time, zero_time, zero_time)
 	if err != nil {
 		return err
@@ -149,7 +148,7 @@ func (conn *Db_conn) ViewApplication(req *http.Request) (*applicationView, error
 	row := conn.QueryRow(context.Background(), "SELECT * FROM application WHERE id = $1", id)
 
 	app := new(applicationView)
-	
+
 	var unixAppDate, unixOffer, unixRejected, unixDeclined *int64
 
 	err := row.Scan(&app.Id, &app.JobTitle, &app.Description, &app.Url, &app.Company, &app.Resume, &app.CoverLetter, &unixAppDate, &unixOffer, &unixRejected, &unixDeclined)
@@ -157,7 +156,7 @@ func (conn *Db_conn) ViewApplication(req *http.Request) (*applicationView, error
 		return app, err
 	}
 	app.AppDate = time.Unix(*unixAppDate, 0).UTC()
-	
+
 	app.Offer = time.Unix(*unixOffer, 0).UTC()
 	app.Rejected = time.Unix(*unixRejected, 0).UTC()
 	app.Declined = time.Unix(*unixDeclined, 0).UTC()
@@ -219,7 +218,7 @@ func (conn *Db_conn) UpdateApplicationGET(req *http.Request) (*applicationView, 
 func (conn *Db_conn) UpdateApplicationPOST(req *http.Request) error {
 	var err error
 	var Buf bytes.Buffer
-	req.ParseMultipartForm(32<<20)
+	req.ParseMultipartForm(32 << 20)
 
 	time_layout := "2006-01-02"
 	zero_time := time.Time{}
@@ -228,9 +227,9 @@ func (conn *Db_conn) UpdateApplicationPOST(req *http.Request) error {
 	if id == "" {
 		return errors.New("Error in retrieving id")
 	}
-	
+
 	app := application{}
-	
+
 	app.JobTitle = req.FormValue("job_title")
 	app.Description = req.FormValue("description")
 	app.Url = req.FormValue("url")
@@ -264,7 +263,7 @@ func (conn *Db_conn) UpdateApplicationPOST(req *http.Request) error {
 	}
 
 	if _, ok := req.MultipartForm.File["resume"]; ok {
-		resume_file, _, err  := req.FormFile("resume")
+		resume_file, _, err := req.FormFile("resume")
 		if err != nil {
 			return err
 		}
@@ -282,7 +281,7 @@ func (conn *Db_conn) UpdateApplicationPOST(req *http.Request) error {
 			return err
 		}
 		defer coverletter_file.Close()
-		if _, err = io.Copy(&Buf, coverletter_file); err != nil{
+		if _, err = io.Copy(&Buf, coverletter_file); err != nil {
 			return err
 		}
 		app.CoverLetter = Buf.Bytes()
@@ -321,15 +320,15 @@ func (conn *Db_conn) AllContacts() ([]*contactRecordListView, error) {
 }
 
 func (conn *Db_conn) InsertContact(req *http.Request) error {
-	req.ParseMultipartForm(32<<20)
+	req.ParseMultipartForm(32 << 20)
 
 	contact := contact{
-		Name: req.FormValue("name"),
+		Name:     req.FormValue("name"),
 		Position: req.FormValue("position"),
-		Number: req.FormValue("number"),
-		Email: req.FormValue("email"),
-		Company: req.FormValue("company"),
-		Note: req.FormValue("note"),
+		Number:   req.FormValue("number"),
+		Email:    req.FormValue("email"),
+		Company:  req.FormValue("company"),
+		Note:     req.FormValue("note"),
 	}
 
 	_, err := conn.Exec(context.Background(), "INSERT INTO contacts (name, position, number, email, company, note) VALUES ($1, $2, $3, $4, $5, $6)", contact.Name, contact.Position, contact.Number, contact.Email, contact.Company, contact.Note)
@@ -359,7 +358,7 @@ func (conn *Db_conn) UpdateContactGET(req *http.Request) (*contactView, error) {
 	if id == "" {
 		return new(contactView), errors.New("Error in retrieving id")
 	}
-	
+
 	row := conn.QueryRow(context.Background(), "SELECT * FROM contacts WHERE id = $1", id)
 
 	contact := new(contactView)
@@ -376,16 +375,16 @@ func (conn *Db_conn) UpdateContactPOST(req *http.Request) error {
 	if id == "" {
 		return errors.New("Error in retrieving id")
 	}
-	
-	req.ParseMultipartForm(32<<20)
+
+	req.ParseMultipartForm(32 << 20)
 
 	contact := contact{
-		Name: req.FormValue("name"),
+		Name:     req.FormValue("name"),
 		Position: req.FormValue("position"),
-		Number: req.FormValue("number"),
-		Email: req.FormValue("email"),
-		Company: req.FormValue("company"),
-		Note: req.FormValue("note"),
+		Number:   req.FormValue("number"),
+		Email:    req.FormValue("email"),
+		Company:  req.FormValue("company"),
+		Note:     req.FormValue("note"),
 	}
 
 	_, err := conn.Exec(context.Background(), "UPDATE contacts SET (name, position, number, email, company, note) = ($1, $2, $3, $4, $5, $6) WHERE id = $7", contact.Name, contact.Position, contact.Number, contact.Email, contact.Company, contact.Note, id)
@@ -424,7 +423,7 @@ func (conn *Db_conn) InsertInterviewGET(req *http.Request) (*interviewLink, erro
 	}
 	link := new(interviewLink)
 	link.Id = id[0]
-	
+
 	return link, nil
 }
 
@@ -432,14 +431,14 @@ func (conn *Db_conn) InsertInterviewPOST(req *http.Request) error {
 
 	var err error
 	time_layout := "2006-01-02 15:04"
-	req.ParseMultipartForm(32<<20)
+	req.ParseMultipartForm(32 << 20)
 	interview := interview{}
-	
+
 	interview.Appointment, err = time.Parse(time_layout, req.FormValue("interviewDate")+" "+req.FormValue("interviewTime"))
 	if err != nil {
 		return err
 	}
-	
+
 	interview.Method = req.FormValue("method")
 	interview.JobID, err = strconv.Atoi(req.FormValue("id"))
 	if err != nil {
@@ -463,7 +462,7 @@ func (conn *Db_conn) UpdateInterviewPOST(req *http.Request) error {
 
 	var err error
 	time_layout := "2006-01-02 15:04"
-	req.ParseMultipartForm(32<<20)
+	req.ParseMultipartForm(32 << 20)
 	interview := interview{}
 
 	interview.Appointment, err = time.Parse(time_layout, req.FormValue("interviewDate")+" "+req.FormValue("interviewTime"))
