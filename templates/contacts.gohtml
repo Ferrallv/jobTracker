@@ -1,16 +1,21 @@
 {{template "header"}}
 
-	<h1>Contacts</h1>
-	<button><a href="/contacts/add">+Contact</a></button>
-	<table>
+<h1>Contacts</h1>
+<button><a href="/contacts/add">+Contact</a></button>
+<table class="table table-striped">
+	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Position</th>
-			<th>Number</th>
-			<th>Email</th>
-			<th>Company</th>
-			<th>Note</th>
+			<th scope="col">Name</th>
+			<th scope="col">Position</th>
+			<th scope="col">Number</th>
+			<th scope="col">Email</th>
+			<th scope="col">Company</th>
+			<th scope="col">Note</th>
+			<th scope="col"></th>
+			<th scope="col"></th>
 		</tr>
+	</thead>
+	<tbody>
 		{{range .}}
 		<tr>
 			<td>{{.Name}}</td>
@@ -23,6 +28,7 @@
 			<td><a href="/contacts/remove/execute?id={{.Id}}">DELETE</a></td>
 		</tr>
 		{{end}}
-	</table>
+	</tbody>
+</table>
 
 {{template "footer"}}

@@ -2,33 +2,51 @@
 
 <h1>Application Details</h1>
 <form method="post" action="/applications/update/execute?id={{.Id}}&appdate={{.AppDate}}" enctype="multipart/form-data">
-    <label>Job Title
-        <input type="text" name="job_title" required autofocus value="{{.JobTitle}}">
-    </label>
-    <label>Job Description
-        <input type="text" name="description" value="{{.Description}}">
-    </label>
-    <label>Job URL link
-        <input type="url" name="url" value="{{.Url}}">
-    </label>
-    <label>Company
-        <input type="text" name="company" required value="{{.Company}}">
-    </label>
-    <label>Resume Used
-        <input type="file" name="resume" placeholder="CV used">
-    </label>
-    <label>Cover Letter Used
-        <input type="file" name="cvr_letter" placeholder="Cover Letter">
-    </label>
-    <label>Offer Accepted?
-        <input type="date" name="offerDate">
-    </label>
-    <label>Offer Rejected?
-        <input type="date" name="rejectedDate">
-    </label>
-    <label>Application Declined?
-        <input type="date" name="declinedDate">
-    </label>
+    <div class="form-group">
+        <label>Job Title
+            <input type="text" name="job_title" required autofocus value="{{.JobTitle}}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Job Description
+            <input type="text" name="description" value="{{.Description}}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Job URL link
+            <input type="url" name="url" value="{{.Url}}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Company
+            <input type="text" name="company" required value="{{.Company}}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Resume Used
+            <input type="file" name="resume" placeholder="CV used">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Cover Letter Used
+            <input type="file" name="cvr_letter" placeholder="Cover Letter">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Offer Accepted?
+            <input type="date" name="offerDate">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Offer Rejected?
+            <input type="date" name="rejectedDate">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Application Declined?
+            <input type="date" name="declinedDate">
+        </label>
+    </div>
     <input type="submit">
 </form>
 
