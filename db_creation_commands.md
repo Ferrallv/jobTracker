@@ -13,11 +13,16 @@ Enter these into your Postgres CLI to create the database for the app. Be sure t
 	GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO <username>;
 	
 	CREATE EXTENSION citext;
+
+	CREATE DOMAIN email AS citext
+  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 		
 	CREATE TABLE contacts (
 		id 			serial PRIMARY KEY,
-		name 		varchar(45) NOT NULL, position varchar(45), number varchar(15),
-		email 		citext,
+		name 		varchar(45) NOT NULL,
+		position varchar(45),
+		number varchar(15),
+		email 		email,
 		company 	varchar(45) NOT NULL,
 		note 		text
 	); 
