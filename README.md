@@ -5,17 +5,26 @@ The app is run in the browser at url http://localhost:8080/. It is a basic CRUD 
 
 Here's what it looks like:
 
+
+Adding an application:
 <p align="center">
   <img height="400" width="600" src="https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif">
 </p>
 
+
+Adding a contact:
 <p align="center">
   <img height="400" width="600" src="https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif">
 </p>
 
+
+Adding an interview:
 <p align="center">
   <img height="400" width="600" src="https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif">
 </p>
+
+
+
 
 MIT License
 
