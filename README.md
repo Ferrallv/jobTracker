@@ -1,8 +1,3 @@
-<style type="text/css">
-	.center {
-		text-align: center;
-	}
-</style>
 # jobTracker
 A simple browser-run application for tracking job applications.
 
@@ -12,7 +7,7 @@ Here's what it looks like:
 
 
 ![Adding an application](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif)
-{: .center}
+{: style="text-align: center;"}
 
 ![Adding a contact](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif)
 
