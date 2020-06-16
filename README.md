@@ -9,11 +9,9 @@ Here's what it looks like:
 ![Adding an application](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif)
 {: refdef}
 
-{:refdef: style="text-align: center;"}
 ![Adding a contact](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif)
 {: refdef}
 
-{:refdef: style="text-align: center;"}
 ![Adding an interview](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif)
 {: refdef}
 
