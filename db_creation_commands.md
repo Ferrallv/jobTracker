@@ -6,11 +6,7 @@ Enter these into your Postgres CLI to create the database for the app. Be sure t
 
 	\c jobTracker
 
-	CREATE USER <username> WITH PASSWORD <password>;
-	
-	GRANT ALL PRIVILEGES ON DATABASE jobtracker TO <username>;
-
-	GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO <username>;
+	CREATE USER <username> WITH PASSWORD '<password>';
 	
 	CREATE EXTENSION citext;
 
@@ -20,8 +16,8 @@ Enter these into your Postgres CLI to create the database for the app. Be sure t
 	CREATE TABLE contacts (
 		id 			serial PRIMARY KEY,
 		name 		varchar(45) NOT NULL,
-		position varchar(45),
-		number varchar(15),
+		position 	varchar(45),
+		number 		varchar(45),
 		email 		email,
 		company 	varchar(45) NOT NULL,
 		note 		text
@@ -42,8 +38,16 @@ Enter these into your Postgres CLI to create the database for the app. Be sure t
 	);
 
 	CREATE TABLE interview (
-		id 		serial PRIMARY KEY,
-		date 	bigint NOT NULL,
-		method 	varchar(10) NOT NULL,
-		job_id 	int REFERENCES application(id)
+		id 			serial PRIMARY KEY,
+		date 		bigint NOT NULL,
+		method 		varchar(45) NOT NULL,
+		job_id 		int REFERENCES application(id)
 	);
+
+	GRANT ALL PRIVILEGES ON DATABASE jobtracker TO <username>;
+
+	GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO <username>;
+
+	GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO <username>;
+
+	ALTER DEFAULT PRIVILEGES FOR USER <username> IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO <username>;
