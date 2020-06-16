@@ -1,3 +1,8 @@
+<style type="text/css">
+	.center {
+		text-align: center;
+	}
+</style>
 # jobTracker
 A simple browser-run application for tracking job applications.
 
@@ -6,11 +11,11 @@ The app is run in the browser at url http://localhost:8080/. It is a basic CRUD 
 Here's what it looks like:
 
 
-![Adding an application](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif =100x100)
+![Adding an application](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif){: .center}
 
-![Adding a contact](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif =100x100)
+![Adding a contact](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif)
 
-![Adding an interview](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif =100x100)
+![Adding an interview](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif)
 
 
 MIT License
