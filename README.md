@@ -41,6 +41,7 @@ Finally to get it started, cd to the directory you copied the repo to and run
 
 This assumes you have [go](https://golang.org/dl/) installed!
 
+---
 
 MIT License
 
