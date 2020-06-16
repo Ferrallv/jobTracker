@@ -6,13 +6,16 @@ The app is run in the browser at url http://localhost:8080/. It is a basic CRUD 
 Here's what it looks like:
 
 {:refdef: style="text-align: center;"}
-![Adding an application](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif | width=100){: refdef}
+![Adding an application](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/01_jobtracker_readme.gif | width=100)
+{: refdef}
 
 {:refdef: style="text-align: center;"}
-![Adding a contact](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif | width=100){: refdef}
+![Adding a contact](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/02_jobtracker_readme.gif | width=100)
+{: refdef}
 
 {:refdef: style="text-align: center;"}
-![Adding an interview](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif | width=100){: refdef}
+![Adding an interview](https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif | width=100)
+{: refdef}
 
 MIT License
 
