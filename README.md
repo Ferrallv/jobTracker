@@ -1,4 +1,6 @@
 # jobTracker
+
+## Overview
 A simple browser-run application for tracking job applications.
 
 The app is run in the browser at url http://localhost:8080/. It is a basic CRUD application to give a GUI for keeping track of applications. 
@@ -23,7 +25,21 @@ Adding an interview:
   <img height="400" width="600" src="https://github.com/Ferrallv/jobTracker/blob/master/readme_images/03_jobtracker_readme.gif">
 </p>
 
+## Use
 
+After setting up the [Postgresql database](https://ferrallv.github.io/site/project/PostgresForJobtracker/) copy or fork this repo. 
+
+Create a `.env` file and write 
+
+	DATABASE_URL=postgresql://<username>:<password>@localhost:5432/jobtracker
+
+where <username> and <password> are those that you set when creating the database.
+
+Finally to get it started, cd to the directory you copied the repo to and run
+	
+	go run main.go
+
+This assumes you have [go](https://golang.org/dl/) installed!
 
 
 MIT License
