@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-	"fmt" // for debugging
+	// "fmt" // for debugging
 )
 
 type applicationRecordListView struct {
@@ -64,7 +64,6 @@ type interviewLink struct {
 func (conn *Db_conn) AllApplications() ([]*applicationRecordListView, error) {
 	rows, err := conn.Query(context.Background(), "SELECT id, job_title, company, app_date FROM application")
 	if err != nil {
-		fmt.Println("Here it is 1")
 		return nil, err
 	}
 	defer rows.Close()
@@ -76,17 +75,11 @@ func (conn *Db_conn) AllApplications() ([]*applicationRecordListView, error) {
 		app := new(applicationRecordListView)
 		err := rows.Scan(&app.Id, &app.JobTitle, &app.Company, &unixDate)
 		if err != nil {
-			fmt.Println("Here it is 2")
 			return nil, err
 		}
 		app.AppDate = time.Unix(*unixDate, 0).UTC()
 		apps = append(apps, app)
 	}
-
-	// if err := rows.Err(); err != nil {
-	// 	fmt.Println("Here it is 3")
-	// 	return nil, err
-	// }
 
 	return apps, nil
 }
@@ -487,7 +480,7 @@ func (conn *Db_conn) UpdateInterviewPOST(req *http.Request) error {
 func (conn *Db_conn) RemoveInterview(req *http.Request) error {
 	id_slice, ok := req.URL.Query()["id"]
 	if !ok {
-		errors.New("Error in retrieving id.")
+		return errors.New("Error in retrieving id.")
 	}
 
 	_, err := conn.Exec(context.Background(), "DELETE FROM interview WHERE id = $1;", id_slice[0])

@@ -50,7 +50,6 @@ func main() {
 	http.HandleFunc("/interviews/remove/execute", env.interviewRemove)
 
 	http.Handle("/tmp/", http.StripPrefix("/tmp", http.FileServer(http.Dir("./tmp"))))
-	// http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./static"))))
 
 	http.ListenAndServe(":8080", nil)
 }
